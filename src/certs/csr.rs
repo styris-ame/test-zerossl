@@ -162,7 +162,7 @@ pub fn generate_csr(
     let name = extract_name_from_csr(csr)?;
 
     let mut builder = X509Req::builder()?;
-    builder.set_version(2)?;
+    builder.set_version(0)?;
     builder.set_subject_name(&name)?;
     builder.set_pubkey(&pkey)?;
 
