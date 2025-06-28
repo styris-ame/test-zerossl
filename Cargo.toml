@@ -1,7 +1,6 @@
 [package]
 name = "zerossl"
 description = "ZeroSSL Rust Client"
-authors = ["David Radunz <david.radunz@litprotocol.com>"]
 version = "0.1.0"
 edition = "2024"
 

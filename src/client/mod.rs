@@ -256,13 +256,20 @@ mod tests {
         let api_key = env::var("API_KEY").unwrap();
         let client = Client::new(api_key);
 
+        println!("Breh1");
         let pkey = generate_rsa_2048_priv_key().unwrap();
 
         let mut domains: Vec<String> = Vec::new();
         domains.push(test_domain.clone());
+        println!("Breh2");
         let bytes = pkey.private_key_to_pem_pkcs8().unwrap();
 
-        let mut file = std::fs::File::create("server.key").unwrap();
+	println!("L RATIO");
+
+        let path = env::current_dir().unwrap();
+        println!("The current directory is {}", path.display());        
+
+        let mut file = std::fs::File::create("./server.key").unwrap();
         file.write_all(&bytes).unwrap();
 
         let mut csr = Csr::new(test_domain.clone());
