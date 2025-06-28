@@ -59,7 +59,7 @@ async fn main() {
     println!("Validation file: {validation_file}");
     fs::write(validation_file, file_validation_content.join("\n")).unwrap();
     
-    let verify_result = client.verify_certificate(validation_id, &VerifyCertificateReq::new(ValidationType::HttpCsrHash, None)).await.unwrap();
+    let verify_result = client.verify_certificate(validation_id.clone(), &VerifyCertificateReq::new(ValidationType::HttpCsrHash, None)).await.unwrap();
 
     if let Some(err) = verify_result.err_msg_string() {
         println!("Err: {err}");
