@@ -40,9 +40,10 @@ pub struct OtherValidation {
 
 impl OtherValidation {
     pub fn file_validation(&self) -> Option<(String, Vec<String>)> {
-        if let Some(file_validation_url_https) = self.file_validation_url_https.as_ref() {
+        if let Some(file_validation_url_http) = self.file_validation_url_http.as_ref() {
+            println!("http_url: {file_validation_url_http}");
             if let Some(file_validation_content) = self.file_validation_content.as_ref() {
-                let parts: Vec<&str> = file_validation_url_https.split("/").collect();
+                let parts: Vec<&str> = file_validation_url_http.split("/").collect();
                 if parts.len() > 0 {
                     let id_part = parts.last().unwrap();
                     let parts: Vec<&str> = id_part.split(".").collect();

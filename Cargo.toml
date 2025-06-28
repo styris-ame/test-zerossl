@@ -4,11 +4,20 @@ description = "ZeroSSL Rust Client"
 version = "0.1.0"
 edition = "2024"
 
+[profile.release]
+debug = 1
+#lto = true
+
 [dependencies]
 reqwest = { version = "0.12.20", features = ["json"] }
 serde = { version = "1.0.219", features = ["derive"] }
 serde_json = { version = "1.0.140" }
 openssl = { version = "0.10.73" }
-
-[dev-dependencies]
-tokio = { version = "1.45.1", features = ["full"] }
+tokio = { version = "1.45.1", default-features = false, features = [
+    "net",
+    "rt-multi-thread",
+    "time",
+    "sync",
+    "macros",
+    "fs"
+] }
