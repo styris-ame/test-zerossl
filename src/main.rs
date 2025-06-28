@@ -45,6 +45,8 @@ async fn main() {
 
     let cert_res = client.create_certificate(&cert_req).await
         .expect("failed to get cert");
+    
+    let id = cert_res.certificate().id.clone().unwrap();
     println!("OUT: {:#?}", cert_res);
     let (validation_id, file_validation_content) = cert_res.certificate().file_validation(&test_domain).unwrap();
     println!("FV: {:#?}, {:#?}", validation_id, file_validation_content);
@@ -59,14 +61,14 @@ async fn main() {
     println!("Validation file: {validation_file}");
     fs::write(validation_file, file_validation_content.join("\n")).unwrap();
     
-    let verify_result = client.verify_certificate(validation_id.clone(), &VerifyCertificateReq::new(ValidationType::HttpCsrHash, None)).await.unwrap();
+    let verify_result = client.verify_certificate(id.clone(), &VerifyCertificateReq::new(ValidationType::HttpCsrHash, None)).await.unwrap();
 
     if let Some(err) = verify_result.err_msg_string() {
         println!("Err: {err}");
         return;
     }
     
-    let mut download_result = client.download_certificate(validation_id).await.unwrap();
+    let mut download_result = client.download_certificate(id.clone()).await.unwrap();
     if let Some(err) = download_result.err_msg_string() {
         println!("ErrD: {err}");
         return;
