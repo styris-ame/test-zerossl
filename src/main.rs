@@ -51,9 +51,9 @@ async fn main() {
 
     let validation_dir = "./dist/.well-known/pki-validation";
     if !Path::new(validation_dir).is_dir() {
-        println!("Data directory '{products_dir}' not found");
+        println!("Data directory '{validation_dir}' not found");
         fs::create_dir_all(validation_dir).unwrap();
-        println!("Data directory '{products_dir}' created");
+        println!("Data directory '{validation_dir}' created");
     }
     let validation_file = format!("{validation_dir}/{}.txt", validation_id);
     println!("Validation file: {validation_file}");
