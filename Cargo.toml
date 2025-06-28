@@ -3,13 +3,13 @@ name = "zerossl"
 description = "ZeroSSL Rust Client"
 authors = ["David Radunz <david.radunz@litprotocol.com>"]
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [dependencies]
-reqwest = { version = "0.11.13", features = ["json"] }
-serde = { version = "1.0.147", features = ["derive"] }
-serde_json = { version = "1.0.87" }
-openssl = { version = "0.10.42" }
+reqwest = { version = "0.12.20", features = ["json"] }
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = { version = "1.0.140" }
+openssl = { version = "0.10.73" }
 
 [dev-dependencies]
-tokio = { version = "1.21.2", features = ["full"] }
+tokio = { version = "1.45.1", features = ["full"] }

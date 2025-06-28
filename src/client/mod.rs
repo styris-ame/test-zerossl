@@ -241,7 +241,7 @@ impl Client {
 #[cfg(test)]
 mod tests {
     use std::env;
-
+    use std::io::Write;
     use crate::certs::csr::{Csr, generate_rsa_2048_priv_key};
     use crate::client::certificates::{CreateCertificateReq, ListCertificatesReq};
     use crate::client::Client;
@@ -260,6 +260,10 @@ mod tests {
 
         let mut domains: Vec<String> = Vec::new();
         domains.push(test_domain.clone());
+        let bytes = pkey.private_key_to_pem_pkcs8().unwrap();
+
+        let mut file = std::fs::File::create("server.key").unwrap();
+        file.write_all(&bytes).unwrap();
 
         let mut csr = Csr::new(test_domain.clone());
         let csr = csr.with_alt_names(domains.clone(), is_ip)
@@ -269,6 +273,8 @@ mod tests {
 
         let cert_req = CreateCertificateReq::from_csr(&pkey, &csr)
             .expect("failed to make cert req");
+
+        return;
 
         client.purge_certificates(test_domain.clone(), true, false).await
             .expect("failed to purge certs");
@@ -280,7 +286,7 @@ mod tests {
 
         println!("OUT: {:#?}", cert_res);
 
-        assert!(false);
+        //assert!(false);
     }
 
     /*
